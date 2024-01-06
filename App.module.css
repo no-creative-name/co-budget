@@ -1,0 +1,8 @@
+.container {
+  flex: 1;
+  background-color: #fff;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 16px;
+  margin: 64px 16px;
+}
