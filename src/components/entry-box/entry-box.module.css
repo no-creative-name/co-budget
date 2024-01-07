@@ -1,6 +1,7 @@
 .entryBox {
+  flex-direction: row;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 16px;
   background-color: white;
   width: 100%;

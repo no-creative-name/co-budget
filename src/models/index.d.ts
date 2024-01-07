@@ -21,6 +21,7 @@ export declare class User {
   readonly firstName: string;
   readonly lastName?: string | null;
   readonly shares?: (Share | null)[] | null;
+  readonly paidEntries?: (BudgetEntry | null)[] | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<User, UserMetaData>);
@@ -42,6 +43,7 @@ export declare class BudgetEntry {
   readonly id: string;
   readonly name: string;
   readonly shares?: (Share | null)[] | null;
+  readonly paidByUserId: string;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<BudgetEntry, BudgetEntryMetaData>);

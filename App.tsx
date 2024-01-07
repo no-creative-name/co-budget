@@ -4,7 +4,7 @@ import { Amplify } from 'aws-amplify';
 import React from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import amplifyconfig from './src/aws-exports.js';
-import { HomeScreen } from './src/screens/home/home';
+import { HomeNavigator } from './src/screens/home/home-navigator';
 import { SettingsScreen } from './src/screens/settings/settings';
 
 Amplify.configure(amplifyconfig);
@@ -15,7 +15,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} options={{
+        <Tab.Screen name="Home" component={HomeNavigator} options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
           )

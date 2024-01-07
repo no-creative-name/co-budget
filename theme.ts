@@ -3,5 +3,6 @@ export const THEME = {
     primary: '#3cc852',
     secondary: '#f6f626',
     black: '#222222',
+    white: '#ffffff',
   }
 }

@@ -38,6 +38,20 @@ export const schema = {
                         "associatedWith": "userId"
                     }
                 },
+                "paidEntries": {
+                    "name": "paidEntries",
+                    "isArray": true,
+                    "type": {
+                        "model": "BudgetEntry"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "paidByUserId"
+                    }
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -204,6 +218,13 @@ export const schema = {
                         "associatedWith": "budgetEntryId"
                     }
                 },
+                "paidByUserId": {
+                    "name": "paidByUserId",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -229,6 +250,16 @@ export const schema = {
                     "properties": {}
                 },
                 {
+                    "type": "key",
+                    "properties": {
+                        "name": "byPaidByUser",
+                        "fields": [
+                            "paidByUserId",
+                            "name"
+                        ]
+                    }
+                },
+                {
                     "type": "auth",
                     "properties": {
                         "rules": [
@@ -249,5 +280,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "9192b20058cf84d5ed5d05bc0ee5d263"
+    "version": "d75b4c638d6813594d1c1e278ede9f08"
 };

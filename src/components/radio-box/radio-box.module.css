@@ -1,0 +1,26 @@
+.radioBoxWrapper {
+  flex: 1;
+  flex-direction: row;
+}
+
+.radioOption {
+  flex: 1;
+  padding: 8px;
+  margin: 4px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.radioOptionText {
+  color: #000000;
+  font-size: 16px;
+}
+
+.radioOptionSelected {
+  background-color: #007bff;
+}
+
+.radioOptionTextSelected {
+  color: #ffffff;
+}

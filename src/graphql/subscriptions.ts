@@ -23,6 +23,20 @@ export const onCreateUser = /* GraphQL */ `
         nextToken
         startedAt
       }
+      paidEntries {
+        items {
+          id
+          name
+          paidByUserId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -43,6 +57,20 @@ export const onUpdateUser = /* GraphQL */ `
           amount
           userId
           budgetEntryId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
+      paidEntries {
+        items {
+          id
+          name
+          paidByUserId
           createdAt
           updatedAt
           _version
@@ -81,6 +109,20 @@ export const onDeleteUser = /* GraphQL */ `
         nextToken
         startedAt
       }
+      paidEntries {
+        items {
+          id
+          name
+          paidByUserId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -109,6 +151,7 @@ export const onCreateBudgetEntry = /* GraphQL */ `
         nextToken
         startedAt
       }
+      paidByUserId
       createdAt
       updatedAt
       _version
@@ -137,6 +180,7 @@ export const onUpdateBudgetEntry = /* GraphQL */ `
         nextToken
         startedAt
       }
+      paidByUserId
       createdAt
       updatedAt
       _version
@@ -165,6 +209,7 @@ export const onDeleteBudgetEntry = /* GraphQL */ `
         nextToken
         startedAt
       }
+      paidByUserId
       createdAt
       updatedAt
       _version

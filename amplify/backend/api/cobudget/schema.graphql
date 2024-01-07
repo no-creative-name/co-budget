@@ -7,12 +7,14 @@ type User @model @auth(rules: [{ allow: public }]) {
   firstName: String!
   lastName: String
   shares: [Share] @hasMany(indexName: "byUser", fields: ["id"])
+  paidEntries: [BudgetEntry] @hasMany(indexName: "byPaidByUser", fields: ["id"])
 }
 
 type BudgetEntry @model @auth(rules: [{ allow: public }]) {
   id: ID!
   name: String!
   shares: [Share] @hasMany(indexName: "byBudgetEntry", fields: ["id"])
+  paidByUserId: ID! @index(name: "byPaidByUser", sortKeyFields: ["name"])
 }
 
 type Share @model @auth(rules: [{ allow: public }]) {

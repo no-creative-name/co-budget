@@ -63,6 +63,7 @@ export type User = {
   firstName: string,
   lastName?: string | null,
   shares?: ModelShareConnection | null,
+  paidEntries?: ModelBudgetEntryConnection | null,
   createdAt: string,
   updatedAt: string,
   _version: number,
@@ -90,6 +91,26 @@ export type Share = {
   _lastChangedAt: number,
 };
 
+export type ModelBudgetEntryConnection = {
+  __typename: "ModelBudgetEntryConnection",
+  items:  Array<BudgetEntry | null >,
+  nextToken?: string | null,
+  startedAt?: number | null,
+};
+
+export type BudgetEntry = {
+  __typename: "BudgetEntry",
+  id: string,
+  name: string,
+  shares?: ModelShareConnection | null,
+  paidByUserId: string,
+  createdAt: string,
+  updatedAt: string,
+  _version: number,
+  _deleted?: boolean | null,
+  _lastChangedAt: number,
+};
+
 export type UpdateUserInput = {
   id: string,
   firstName?: string | null,
@@ -105,31 +126,38 @@ export type DeleteUserInput = {
 export type CreateBudgetEntryInput = {
   id?: string | null,
   name: string,
+  paidByUserId: string,
   _version?: number | null,
 };
 
 export type ModelBudgetEntryConditionInput = {
   name?: ModelStringInput | null,
+  paidByUserId?: ModelIDInput | null,
   and?: Array< ModelBudgetEntryConditionInput | null > | null,
   or?: Array< ModelBudgetEntryConditionInput | null > | null,
   not?: ModelBudgetEntryConditionInput | null,
 };
 
-export type BudgetEntry = {
-  __typename: "BudgetEntry",
-  id: string,
-  name: string,
-  shares?: ModelShareConnection | null,
-  createdAt: string,
-  updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
+export type ModelIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
 };
 
 export type UpdateBudgetEntryInput = {
   id: string,
   name?: string | null,
+  paidByUserId?: string | null,
   _version?: number | null,
 };
 
@@ -167,22 +195,6 @@ export type ModelFloatInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
-};
-
 export type UpdateShareInput = {
   id: string,
   amount?: number | null,
@@ -215,16 +227,10 @@ export type ModelUserConnection = {
 export type ModelBudgetEntryFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
+  paidByUserId?: ModelIDInput | null,
   and?: Array< ModelBudgetEntryFilterInput | null > | null,
   or?: Array< ModelBudgetEntryFilterInput | null > | null,
   not?: ModelBudgetEntryFilterInput | null,
-};
-
-export type ModelBudgetEntryConnection = {
-  __typename: "ModelBudgetEntryConnection",
-  items:  Array<BudgetEntry | null >,
-  nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelShareFilterInput = {
@@ -256,6 +262,22 @@ export type CreateUserMutation = {
         amount: number,
         userId: string,
         budgetEntryId: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    paidEntries?:  {
+      __typename: "ModelBudgetEntryConnection",
+      items:  Array< {
+        __typename: "BudgetEntry",
+        id: string,
+        name: string,
+        paidByUserId: string,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -301,6 +323,22 @@ export type UpdateUserMutation = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    paidEntries?:  {
+      __typename: "ModelBudgetEntryConnection",
+      items:  Array< {
+        __typename: "BudgetEntry",
+        id: string,
+        name: string,
+        paidByUserId: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -328,6 +366,22 @@ export type DeleteUserMutation = {
         amount: number,
         userId: string,
         budgetEntryId: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    paidEntries?:  {
+      __typename: "ModelBudgetEntryConnection",
+      items:  Array< {
+        __typename: "BudgetEntry",
+        id: string,
+        name: string,
+        paidByUserId: string,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -372,6 +426,7 @@ export type CreateBudgetEntryMutation = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    paidByUserId: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -407,6 +462,7 @@ export type UpdateBudgetEntryMutation = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    paidByUserId: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -442,6 +498,7 @@ export type DeleteBudgetEntryMutation = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    paidByUserId: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -537,6 +594,22 @@ export type GetUserQuery = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    paidEntries?:  {
+      __typename: "ModelBudgetEntryConnection",
+      items:  Array< {
+        __typename: "BudgetEntry",
+        id: string,
+        name: string,
+        paidByUserId: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -561,6 +634,11 @@ export type ListUsersQuery = {
       lastName?: string | null,
       shares?:  {
         __typename: "ModelShareConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      paidEntries?:  {
+        __typename: "ModelBudgetEntryConnection",
         nextToken?: string | null,
         startedAt?: number | null,
       } | null,
@@ -592,6 +670,11 @@ export type SyncUsersQuery = {
       lastName?: string | null,
       shares?:  {
         __typename: "ModelShareConnection",
+        nextToken?: string | null,
+        startedAt?: number | null,
+      } | null,
+      paidEntries?:  {
+        __typename: "ModelBudgetEntryConnection",
         nextToken?: string | null,
         startedAt?: number | null,
       } | null,
@@ -632,6 +715,7 @@ export type GetBudgetEntryQuery = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    paidByUserId: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -658,6 +742,7 @@ export type ListBudgetEntriesQuery = {
         nextToken?: string | null,
         startedAt?: number | null,
       } | null,
+      paidByUserId: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -688,6 +773,7 @@ export type SyncBudgetEntriesQuery = {
         nextToken?: string | null,
         startedAt?: number | null,
       } | null,
+      paidByUserId: string,
       createdAt: string,
       updatedAt: string,
       _version: number,
@@ -794,6 +880,22 @@ export type OnCreateUserSubscription = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    paidEntries?:  {
+      __typename: "ModelBudgetEntryConnection",
+      items:  Array< {
+        __typename: "BudgetEntry",
+        id: string,
+        name: string,
+        paidByUserId: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -816,6 +918,22 @@ export type OnUpdateUserSubscription = {
         amount: number,
         userId: string,
         budgetEntryId: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
+    paidEntries?:  {
+      __typename: "ModelBudgetEntryConnection",
+      items:  Array< {
+        __typename: "BudgetEntry",
+        id: string,
+        name: string,
+        paidByUserId: string,
         createdAt: string,
         updatedAt: string,
         _version: number,
@@ -856,6 +974,22 @@ export type OnDeleteUserSubscription = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    paidEntries?:  {
+      __typename: "ModelBudgetEntryConnection",
+      items:  Array< {
+        __typename: "BudgetEntry",
+        id: string,
+        name: string,
+        paidByUserId: string,
+        createdAt: string,
+        updatedAt: string,
+        _version: number,
+        _deleted?: boolean | null,
+        _lastChangedAt: number,
+      } | null >,
+      nextToken?: string | null,
+      startedAt?: number | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -886,6 +1020,7 @@ export type OnCreateBudgetEntrySubscription = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    paidByUserId: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -916,6 +1051,7 @@ export type OnUpdateBudgetEntrySubscription = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    paidByUserId: string,
     createdAt: string,
     updatedAt: string,
     _version: number,
@@ -946,6 +1082,7 @@ export type OnDeleteBudgetEntrySubscription = {
       nextToken?: string | null,
       startedAt?: number | null,
     } | null,
+    paidByUserId: string,
     createdAt: string,
     updatedAt: string,
     _version: number,

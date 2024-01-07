@@ -23,6 +23,20 @@ export const getUser = /* GraphQL */ `
         nextToken
         startedAt
       }
+      paidEntries {
+        items {
+          id
+          name
+          paidByUserId
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+        nextToken
+        startedAt
+      }
       createdAt
       updatedAt
       _version
@@ -43,6 +57,10 @@ export const listUsers = /* GraphQL */ `
         firstName
         lastName
         shares {
+          nextToken
+          startedAt
+        }
+        paidEntries {
           nextToken
           startedAt
         }
@@ -78,6 +96,10 @@ export const syncUsers = /* GraphQL */ `
           nextToken
           startedAt
         }
+        paidEntries {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
@@ -109,6 +131,7 @@ export const getBudgetEntry = /* GraphQL */ `
         nextToken
         startedAt
       }
+      paidByUserId
       createdAt
       updatedAt
       _version
@@ -131,6 +154,7 @@ export const listBudgetEntries = /* GraphQL */ `
           nextToken
           startedAt
         }
+        paidByUserId
         createdAt
         updatedAt
         _version
@@ -162,6 +186,7 @@ export const syncBudgetEntries = /* GraphQL */ `
           nextToken
           startedAt
         }
+        paidByUserId
         createdAt
         updatedAt
         _version
