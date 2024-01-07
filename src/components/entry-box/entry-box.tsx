@@ -1,11 +1,12 @@
-import { FC, ReactNode } from "react";
-import { View } from "react-native";
+import React, { FC } from "react";
+import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import style from './entry-box.module.css';
 
-export const EntryBox: FC<{
-  children: ReactNode;
-}> = ({
-  children
+type EntryBoxProps = TouchableOpacityProps;
+
+export const EntryBox: FC<EntryBoxProps> = ({
+  children,
+  ...props
 }) => {
-  return <View style={style.entryBox}>{children}</View>;
+  return <TouchableOpacity style={style.entryBox} {...props}>{children}</TouchableOpacity>;
 }

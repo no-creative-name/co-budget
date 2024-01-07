@@ -8,6 +8,7 @@ import { THEME } from '../../../theme';
 import { BudgetEntry, Share, User } from "../../API";
 import { ContainerView } from "../../components/container–view/container-view";
 import { EntryBox } from "../../components/entry-box/entry-box";
+import { deleteBudgetEntry, deleteShare } from '../../graphql/mutations';
 import { listBudgetEntries, listShares, listUsers } from "../../graphql/queries";
 
 export const HomeScreen: FC<StackScreenProps<any>> = ({
@@ -60,6 +61,20 @@ export const HomeScreen: FC<StackScreenProps<any>> = ({
     });
   }
 
+  const deleteSharesAndBudgetEntry = async (budgetEntryId: string) => {
+    await API.graphql(graphqlOperation(deleteBudgetEntry, {
+      input: {
+        id: budgetEntryId,
+      }
+    }));
+    const sharesForBudgetEntry = shares.filter(share => share.budgetEntryId === budgetEntryId);
+    await Promise.all(sharesForBudgetEntry.map(share => API.graphql(graphqlOperation(deleteShare, {
+      input: {
+        id: share.id,
+      }
+    }))));
+  }
+
   useEffect(() => {
     loadBudgetEntries();
     loadShares();
@@ -73,6 +88,8 @@ export const HomeScreen: FC<StackScreenProps<any>> = ({
     
     return amountThatCurrentUserPaid - amountThatCurrentUserOwes;
   }
+
+  const totalAmount = budgetEntries.reduce((aggr, entry) => aggr + getDisplayedAmount(entry.id), 0);
   
     return <>
     <View style={{
@@ -91,7 +108,7 @@ export const HomeScreen: FC<StackScreenProps<any>> = ({
         borderRadius: 10,
       }}>
         <Text style={{
-          color: 'white',
+          color: THEME.colors.white,
           fontSize: 30,
           fontWeight: 'bold',
         }}>+</Text>
@@ -101,14 +118,37 @@ export const HomeScreen: FC<StackScreenProps<any>> = ({
     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
   }>
         {budgetEntries?.map(entry => {
-          return <EntryBox key={entry.id}>
-          <Text>{entry.name}</Text>
+          return <EntryBox key={entry.id}
+          onLongPress={async () => {
+            await deleteSharesAndBudgetEntry(entry.id);
+            await loadBudgetEntries();
+            await loadShares();
+          }}>
           <Text style={{
-            color: getDisplayedAmount(entry.id) > 0 ? 'green' : 'red'
+            flexShrink: 1,
+          }}>{entry.name}</Text>
+          <Text style={{
+            color: getDisplayedAmount(entry.id) > 0 ? THEME.colors.primary : THEME.colors.black,
           }}>{formatNumber(getDisplayedAmount(entry.id), { precision: 2})} €</Text>
           </EntryBox>;
         })}
       </ContainerView>
+      <View style={{
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        backgroundColor: THEME.colors.white,
+        paddingTop: 30,
+        paddingBottom: 30,
+        paddingLeft: 20,
+        paddingRight: 20,
+      }}>
+        <Text>Total</Text>
+        <Text style={{
+          fontSize: 30,
+          color: totalAmount > 0 ? THEME.colors.primary : THEME.colors.black,
+        }}>{formatNumber(totalAmount, { precision: 2 })} €</Text>
+      </View>
     </View>
     </>;
 }

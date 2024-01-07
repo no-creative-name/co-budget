@@ -66,6 +66,8 @@ export const AddEntryScreen: FC<StackScreenProps<any>> = ({
         userId: users[1].id
       }
     })) as { data: { createShare: Share } };
+
+    navigate('Root');
   };
   
   return <ContainerView>
@@ -152,7 +154,7 @@ export const AddEntryScreen: FC<StackScreenProps<any>> = ({
         borderRadius: 10,
       }}>
         <Text style={{
-          color: 'white',
+          color: THEME.colors.white,
         }}>Save</Text>
       </TouchableOpacity>
     </View>
