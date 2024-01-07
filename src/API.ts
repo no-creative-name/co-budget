@@ -6,7 +6,6 @@ export type CreateUserInput = {
   id?: string | null,
   firstName: string,
   lastName?: string | null,
-  _version?: number | null,
 };
 
 export type ModelUserConditionInput = {
@@ -66,16 +65,12 @@ export type User = {
   paidEntries?: ModelBudgetEntryConnection | null,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type ModelShareConnection = {
   __typename: "ModelShareConnection",
   items:  Array<Share | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type Share = {
@@ -86,16 +81,12 @@ export type Share = {
   budgetEntryId: string,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type ModelBudgetEntryConnection = {
   __typename: "ModelBudgetEntryConnection",
   items:  Array<BudgetEntry | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type BudgetEntry = {
@@ -106,28 +97,22 @@ export type BudgetEntry = {
   paidByUserId: string,
   createdAt: string,
   updatedAt: string,
-  _version: number,
-  _deleted?: boolean | null,
-  _lastChangedAt: number,
 };
 
 export type UpdateUserInput = {
   id: string,
   firstName?: string | null,
   lastName?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteUserInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateBudgetEntryInput = {
   id?: string | null,
   name: string,
   paidByUserId: string,
-  _version?: number | null,
 };
 
 export type ModelBudgetEntryConditionInput = {
@@ -158,12 +143,10 @@ export type UpdateBudgetEntryInput = {
   id: string,
   name?: string | null,
   paidByUserId?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteBudgetEntryInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type CreateShareInput = {
@@ -171,7 +154,6 @@ export type CreateShareInput = {
   amount: number,
   userId: string,
   budgetEntryId: string,
-  _version?: number | null,
 };
 
 export type ModelShareConditionInput = {
@@ -200,12 +182,10 @@ export type UpdateShareInput = {
   amount?: number | null,
   userId?: string | null,
   budgetEntryId?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteShareInput = {
   id: string,
-  _version?: number | null,
 };
 
 export type ModelUserFilterInput = {
@@ -221,7 +201,6 @@ export type ModelUserConnection = {
   __typename: "ModelUserConnection",
   items:  Array<User | null >,
   nextToken?: string | null,
-  startedAt?: number | null,
 };
 
 export type ModelBudgetEntryFilterInput = {
@@ -264,12 +243,8 @@ export type CreateUserMutation = {
         budgetEntryId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     paidEntries?:  {
       __typename: "ModelBudgetEntryConnection",
@@ -280,18 +255,11 @@ export type CreateUserMutation = {
         paidByUserId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -316,12 +284,8 @@ export type UpdateUserMutation = {
         budgetEntryId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     paidEntries?:  {
       __typename: "ModelBudgetEntryConnection",
@@ -332,18 +296,11 @@ export type UpdateUserMutation = {
         paidByUserId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -368,12 +325,8 @@ export type DeleteUserMutation = {
         budgetEntryId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     paidEntries?:  {
       __typename: "ModelBudgetEntryConnection",
@@ -384,18 +337,11 @@ export type DeleteUserMutation = {
         paidByUserId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -419,19 +365,12 @@ export type CreateBudgetEntryMutation = {
         budgetEntryId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     paidByUserId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -455,19 +394,12 @@ export type UpdateBudgetEntryMutation = {
         budgetEntryId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     paidByUserId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -491,19 +423,12 @@ export type DeleteBudgetEntryMutation = {
         budgetEntryId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     paidByUserId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -521,9 +446,6 @@ export type CreateShareMutation = {
     budgetEntryId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -541,9 +463,6 @@ export type UpdateShareMutation = {
     budgetEntryId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -561,9 +480,6 @@ export type DeleteShareMutation = {
     budgetEntryId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -587,12 +503,8 @@ export type GetUserQuery = {
         budgetEntryId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     paidEntries?:  {
       __typename: "ModelBudgetEntryConnection",
@@ -603,18 +515,11 @@ export type GetUserQuery = {
         paidByUserId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -635,57 +540,15 @@ export type ListUsersQuery = {
       shares?:  {
         __typename: "ModelShareConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       paidEntries?:  {
         __typename: "ModelBudgetEntryConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncUsersQueryVariables = {
-  filter?: ModelUserFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncUsersQuery = {
-  syncUsers?:  {
-    __typename: "ModelUserConnection",
-    items:  Array< {
-      __typename: "User",
-      id: string,
-      firstName: string,
-      lastName?: string | null,
-      shares?:  {
-        __typename: "ModelShareConnection",
-        nextToken?: string | null,
-        startedAt?: number | null,
-      } | null,
-      paidEntries?:  {
-        __typename: "ModelBudgetEntryConnection",
-        nextToken?: string | null,
-        startedAt?: number | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -708,19 +571,12 @@ export type GetBudgetEntryQuery = {
         budgetEntryId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     paidByUserId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -740,48 +596,12 @@ export type ListBudgetEntriesQuery = {
       shares?:  {
         __typename: "ModelShareConnection",
         nextToken?: string | null,
-        startedAt?: number | null,
       } | null,
       paidByUserId: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncBudgetEntriesQueryVariables = {
-  filter?: ModelBudgetEntryFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncBudgetEntriesQuery = {
-  syncBudgetEntries?:  {
-    __typename: "ModelBudgetEntryConnection",
-    items:  Array< {
-      __typename: "BudgetEntry",
-      id: string,
-      name: string,
-      shares?:  {
-        __typename: "ModelShareConnection",
-        nextToken?: string | null,
-        startedAt?: number | null,
-      } | null,
-      paidByUserId: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -798,9 +618,6 @@ export type GetShareQuery = {
     budgetEntryId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -821,39 +638,8 @@ export type ListSharesQuery = {
       budgetEntryId: string,
       createdAt: string,
       updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
     } | null >,
     nextToken?: string | null,
-    startedAt?: number | null,
-  } | null,
-};
-
-export type SyncSharesQueryVariables = {
-  filter?: ModelShareFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncSharesQuery = {
-  syncShares?:  {
-    __typename: "ModelShareConnection",
-    items:  Array< {
-      __typename: "Share",
-      id: string,
-      amount: number,
-      userId: string,
-      budgetEntryId: string,
-      createdAt: string,
-      updatedAt: string,
-      _version: number,
-      _deleted?: boolean | null,
-      _lastChangedAt: number,
-    } | null >,
-    nextToken?: string | null,
-    startedAt?: number | null,
   } | null,
 };
 
@@ -873,12 +659,8 @@ export type OnCreateUserSubscription = {
         budgetEntryId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     paidEntries?:  {
       __typename: "ModelBudgetEntryConnection",
@@ -889,18 +671,11 @@ export type OnCreateUserSubscription = {
         paidByUserId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -920,12 +695,8 @@ export type OnUpdateUserSubscription = {
         budgetEntryId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     paidEntries?:  {
       __typename: "ModelBudgetEntryConnection",
@@ -936,18 +707,11 @@ export type OnUpdateUserSubscription = {
         paidByUserId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -967,12 +731,8 @@ export type OnDeleteUserSubscription = {
         budgetEntryId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     paidEntries?:  {
       __typename: "ModelBudgetEntryConnection",
@@ -983,18 +743,11 @@ export type OnDeleteUserSubscription = {
         paidByUserId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1013,19 +766,12 @@ export type OnCreateBudgetEntrySubscription = {
         budgetEntryId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     paidByUserId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1044,19 +790,12 @@ export type OnUpdateBudgetEntrySubscription = {
         budgetEntryId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     paidByUserId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1075,19 +814,12 @@ export type OnDeleteBudgetEntrySubscription = {
         budgetEntryId: string,
         createdAt: string,
         updatedAt: string,
-        _version: number,
-        _deleted?: boolean | null,
-        _lastChangedAt: number,
       } | null >,
       nextToken?: string | null,
-      startedAt?: number | null,
     } | null,
     paidByUserId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1100,9 +832,6 @@ export type OnCreateShareSubscription = {
     budgetEntryId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1115,9 +844,6 @@ export type OnUpdateShareSubscription = {
     budgetEntryId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };
 
@@ -1130,8 +856,5 @@ export type OnDeleteShareSubscription = {
     budgetEntryId: string,
     createdAt: string,
     updatedAt: string,
-    _version: number,
-    _deleted?: boolean | null,
-    _lastChangedAt: number,
   } | null,
 };

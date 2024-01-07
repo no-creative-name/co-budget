@@ -16,12 +16,8 @@ export const onCreateUser = /* GraphQL */ `
           budgetEntryId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       paidEntries {
         items {
@@ -30,18 +26,11 @@ export const onCreateUser = /* GraphQL */ `
           paidByUserId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -59,12 +48,8 @@ export const onUpdateUser = /* GraphQL */ `
           budgetEntryId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       paidEntries {
         items {
@@ -73,18 +58,11 @@ export const onUpdateUser = /* GraphQL */ `
           paidByUserId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -102,12 +80,8 @@ export const onDeleteUser = /* GraphQL */ `
           budgetEntryId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       paidEntries {
         items {
@@ -116,18 +90,11 @@ export const onDeleteUser = /* GraphQL */ `
           paidByUserId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -144,19 +111,12 @@ export const onCreateBudgetEntry = /* GraphQL */ `
           budgetEntryId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       paidByUserId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -173,19 +133,12 @@ export const onUpdateBudgetEntry = /* GraphQL */ `
           budgetEntryId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       paidByUserId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -202,19 +155,12 @@ export const onDeleteBudgetEntry = /* GraphQL */ `
           budgetEntryId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       paidByUserId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -227,9 +173,6 @@ export const onCreateShare = /* GraphQL */ `
       budgetEntryId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -242,9 +185,6 @@ export const onUpdateShare = /* GraphQL */ `
       budgetEntryId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -257,9 +197,6 @@ export const onDeleteShare = /* GraphQL */ `
       budgetEntryId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;

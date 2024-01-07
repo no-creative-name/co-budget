@@ -19,12 +19,8 @@ export const createUser = /* GraphQL */ `
           budgetEntryId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       paidEntries {
         items {
@@ -33,18 +29,11 @@ export const createUser = /* GraphQL */ `
           paidByUserId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -65,12 +54,8 @@ export const updateUser = /* GraphQL */ `
           budgetEntryId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       paidEntries {
         items {
@@ -79,18 +64,11 @@ export const updateUser = /* GraphQL */ `
           paidByUserId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -111,12 +89,8 @@ export const deleteUser = /* GraphQL */ `
           budgetEntryId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       paidEntries {
         items {
@@ -125,18 +99,11 @@ export const deleteUser = /* GraphQL */ `
           paidByUserId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -156,19 +123,12 @@ export const createBudgetEntry = /* GraphQL */ `
           budgetEntryId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       paidByUserId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -188,19 +148,12 @@ export const updateBudgetEntry = /* GraphQL */ `
           budgetEntryId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       paidByUserId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -220,19 +173,12 @@ export const deleteBudgetEntry = /* GraphQL */ `
           budgetEntryId
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
         }
         nextToken
-        startedAt
       }
       paidByUserId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -248,9 +194,6 @@ export const createShare = /* GraphQL */ `
       budgetEntryId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -266,9 +209,6 @@ export const updateShare = /* GraphQL */ `
       budgetEntryId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
@@ -284,9 +224,6 @@ export const deleteShare = /* GraphQL */ `
       budgetEntryId
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
     }
   }
 `;
