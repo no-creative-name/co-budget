@@ -3,11 +3,10 @@ import type { StackScreenProps } from '@react-navigation/stack';
 import { API, graphqlOperation } from "aws-amplify";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { RefreshControl, Text, TouchableOpacity, View } from "react-native";
-import { formatNumber } from 'react-native-currency-input';
 import { THEME } from '../../../theme';
 import { BudgetEntry, Share, User } from "../../API";
 import { ContainerView } from "../../components/container–view/container-view";
-import { EntryBox } from "../../components/entry-box/entry-box";
+import { SwipeToDeleteFlatList } from '../../components/swipe-to-delete-flatlist/swipe-to-delete-flatlist';
 import { deleteBudgetEntry, deleteShare } from '../../graphql/mutations';
 import { listBudgetEntries, listShares, listUsers } from "../../graphql/queries";
 
@@ -113,11 +112,23 @@ export const HomeScreen: FC<StackScreenProps<any>> = ({
           fontWeight: 'bold',
         }}>+</Text>
       </TouchableOpacity>
-      <ContainerView 
-  refreshControl={
-    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-  }>
-        {budgetEntries?.map(entry => {
+      <ContainerView type='safe-area' >
+          <SwipeToDeleteFlatList
+            rows={budgetEntries?.map(entry => ({
+              id: entry.id,
+              title: entry.name,
+              amount: getDisplayedAmount(entry.id),
+            }))}
+            onDeleteItem={async (id) => {
+              await deleteSharesAndBudgetEntry(id);
+              await loadBudgetEntries();
+              await loadShares();
+            }}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+          />
+        {/* {budgetEntries?.map(entry => {
           return <EntryBox key={entry.id}
           onLongPress={async () => {
             await deleteSharesAndBudgetEntry(entry.id);
@@ -131,9 +142,9 @@ export const HomeScreen: FC<StackScreenProps<any>> = ({
             color: getDisplayedAmount(entry.id) > 0 ? THEME.colors.primary : THEME.colors.black,
           }}>{formatNumber(getDisplayedAmount(entry.id), { precision: 2})} €</Text>
           </EntryBox>;
-        })}
+        })} */}
       </ContainerView>
-      <View style={{
+     {/*  <View style={{
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -148,7 +159,7 @@ export const HomeScreen: FC<StackScreenProps<any>> = ({
           fontSize: 30,
           color: totalAmount > 0 ? THEME.colors.primary : THEME.colors.black,
         }}>{formatNumber(totalAmount, { precision: 2 })} €</Text>
-      </View>
+      </View> */}
     </View>
     </>;
 }
