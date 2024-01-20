@@ -43,7 +43,8 @@ export const listBudgetEntriesWithShares = /* GraphQL */ `
 
 export const HomeScreen: FC<StackScreenProps<any>> = ({
   navigation: {
-    navigate
+    navigate,
+    addListener
   }
 }) => {
   const [refreshing, setRefreshing] = useState(false);
@@ -100,6 +101,9 @@ export const HomeScreen: FC<StackScreenProps<any>> = ({
 
   useEffect(() => {
     loadBudgetEntries();
+    addListener('focus', () => {
+      loadBudgetEntries();
+    })
   }, []);
 
   const getDisplayedAmount = (budgetEntry: BudgetEntry) => {
