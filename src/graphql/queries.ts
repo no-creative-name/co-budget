@@ -14,6 +14,7 @@ export const getUser = /* GraphQL */ `
           amount
           userId
           budgetEntryId
+          isSettled
           createdAt
           updatedAt
         }
@@ -69,6 +70,7 @@ export const getBudgetEntry = /* GraphQL */ `
           amount
           userId
           budgetEntryId
+          isSettled
           createdAt
           updatedAt
         }
@@ -108,6 +110,7 @@ export const getShare = /* GraphQL */ `
       amount
       userId
       budgetEntryId
+      isSettled
       createdAt
       updatedAt
     }
@@ -125,6 +128,7 @@ export const listShares = /* GraphQL */ `
         amount
         userId
         budgetEntryId
+        isSettled
         createdAt
         updatedAt
       }

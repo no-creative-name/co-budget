@@ -14,6 +14,7 @@ export const onCreateUser = /* GraphQL */ `
           amount
           userId
           budgetEntryId
+          isSettled
           createdAt
           updatedAt
         }
@@ -46,6 +47,7 @@ export const onUpdateUser = /* GraphQL */ `
           amount
           userId
           budgetEntryId
+          isSettled
           createdAt
           updatedAt
         }
@@ -78,6 +80,7 @@ export const onDeleteUser = /* GraphQL */ `
           amount
           userId
           budgetEntryId
+          isSettled
           createdAt
           updatedAt
         }
@@ -109,6 +112,7 @@ export const onCreateBudgetEntry = /* GraphQL */ `
           amount
           userId
           budgetEntryId
+          isSettled
           createdAt
           updatedAt
         }
@@ -131,6 +135,7 @@ export const onUpdateBudgetEntry = /* GraphQL */ `
           amount
           userId
           budgetEntryId
+          isSettled
           createdAt
           updatedAt
         }
@@ -153,6 +158,7 @@ export const onDeleteBudgetEntry = /* GraphQL */ `
           amount
           userId
           budgetEntryId
+          isSettled
           createdAt
           updatedAt
         }
@@ -171,6 +177,7 @@ export const onCreateShare = /* GraphQL */ `
       amount
       userId
       budgetEntryId
+      isSettled
       createdAt
       updatedAt
     }
@@ -183,6 +190,7 @@ export const onUpdateShare = /* GraphQL */ `
       amount
       userId
       budgetEntryId
+      isSettled
       createdAt
       updatedAt
     }
@@ -195,6 +203,7 @@ export const onDeleteShare = /* GraphQL */ `
       amount
       userId
       budgetEntryId
+      isSettled
       createdAt
       updatedAt
     }

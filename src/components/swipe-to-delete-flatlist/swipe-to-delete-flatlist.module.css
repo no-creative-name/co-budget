@@ -15,7 +15,19 @@
   padding: 16px;
 }
 
-.swipedRow {
+.swipedRowLeft {
+  flex: 1;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  background-color: #3cc852;
+  border-radius: 16px;
+  padding: 16px;
+  margin-right: 10px;
+}
+
+.swipedRowRight {
   flex: 1;
   flex-direction: row;
   align-items: flex-start;
@@ -24,7 +36,12 @@
   background-color: red;
   border-radius: 16px;
   padding: 16px;
-  width: 100%;
+  margin-left: 10px;
+}
+
+.settleButtonText {
+  color: #fcfcfc;
+  font-weight: bold;
 }
 
 .deleteButtonText {

@@ -3,12 +3,43 @@ import type { StackScreenProps } from '@react-navigation/stack';
 import { API, graphqlOperation } from "aws-amplify";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { RefreshControl, Text, TouchableOpacity, View } from "react-native";
+import { formatNumber } from 'react-native-currency-input';
 import { THEME } from '../../../theme';
-import { BudgetEntry, Share, User } from "../../API";
+import { BudgetEntry, User } from "../../API";
 import { ContainerView } from "../../components/container–view/container-view";
 import { SwipeToDeleteFlatList } from '../../components/swipe-to-delete-flatlist/swipe-to-delete-flatlist';
-import { deleteBudgetEntry, deleteShare } from '../../graphql/mutations';
-import { listBudgetEntries, listShares, listUsers } from "../../graphql/queries";
+import { deleteBudgetEntry, updateShare } from '../../graphql/mutations';
+import { listUsers } from "../../graphql/queries";
+
+export const listBudgetEntriesWithShares = /* GraphQL */ `
+  query ListBudgetEntries(
+    $filter: ModelBudgetEntryFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBudgetEntries(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        shares {
+          items {
+            id
+            amount
+            isSettled
+            budgetEntryId
+            userId
+            createdAt
+            updatedAt
+          }
+        }
+        paidByUserId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 
 export const HomeScreen: FC<StackScreenProps<any>> = ({
   navigation: {
@@ -19,12 +50,12 @@ export const HomeScreen: FC<StackScreenProps<any>> = ({
 
   const [currentUserId, setCurrentUserId] = React.useState<string | undefined>();
   const [budgetEntries, setBudgetEntries] = React.useState<BudgetEntry[]>([]);
-  const [shares, setShares] = React.useState<Share[]>([]);
+
+  const unsettledBudgetEntries = budgetEntries.filter(entry => entry.shares.items.some(share => !share.isSettled));
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     await loadBudgetEntries();
-    await loadShares();
     setRefreshing(false);
   }, []);
 
@@ -39,7 +70,7 @@ export const HomeScreen: FC<StackScreenProps<any>> = ({
   }, []);
 
   const loadBudgetEntries = async () => {
-    (API.graphql(graphqlOperation(listBudgetEntries)) as Promise<{ data: {
+    (API.graphql(graphqlOperation(listBudgetEntriesWithShares)) as Promise<{ data: {
       listBudgetEntries: {
         items: BudgetEntry[]
       }
@@ -50,14 +81,13 @@ export const HomeScreen: FC<StackScreenProps<any>> = ({
     });
   };
 
-  const loadShares = async () => {
-    (API.graphql(graphqlOperation(listShares)) as Promise<{ data: {
-      listShares: {
-        items: Share[]
+  const updateShareAsSettled = async (shareId: string) => {
+    await API.graphql(graphqlOperation(updateShare, {
+      input: {
+        id: shareId,
+        isSettled: true
       }
-    }}>).then(({ data }) => {
-      setShares(data.listShares.items);
-    });
+    }));
   }
 
   const deleteSharesAndBudgetEntry = async (budgetEntryId: string) => {
@@ -66,29 +96,21 @@ export const HomeScreen: FC<StackScreenProps<any>> = ({
         id: budgetEntryId,
       }
     }));
-    const sharesForBudgetEntry = shares.filter(share => share.budgetEntryId === budgetEntryId);
-    await Promise.all(sharesForBudgetEntry.map(share => API.graphql(graphqlOperation(deleteShare, {
-      input: {
-        id: share.id,
-      }
-    }))));
   }
 
   useEffect(() => {
     loadBudgetEntries();
-    loadShares();
   }, []);
 
-  const getDisplayedAmount = (budgetEntryId: string) => {
-    const currentBudgetEntry = budgetEntries.filter(entry => entry.id === budgetEntryId)?.[0];
-    const sharesForBudgetEntry = shares.filter(share => share.budgetEntryId === budgetEntryId);
-    const amountThatCurrentUserPaid = currentBudgetEntry?.paidByUserId === currentUserId ? sharesForBudgetEntry.reduce((aggr, share) => aggr + (share?.amount || 0), 0) : 0;
+  const getDisplayedAmount = (budgetEntry: BudgetEntry) => {
+    const sharesForBudgetEntry = budgetEntry.shares.items;
+    const amountThatCurrentUserPaid = budgetEntry?.paidByUserId === currentUserId ? sharesForBudgetEntry.reduce((aggr, share) => aggr + (share?.amount || 0), 0) : 0;
     const amountThatCurrentUserOwes = sharesForBudgetEntry.filter(share => share.userId === currentUserId)?.reduce((aggr, share) => aggr + (share?.amount || 0), 0);
     
     return amountThatCurrentUserPaid - amountThatCurrentUserOwes;
   }
 
-  const totalAmount = budgetEntries.reduce((aggr, entry) => aggr + getDisplayedAmount(entry.id), 0);
+  const totalAmount = unsettledBudgetEntries.reduce((aggr, entry) => aggr + getDisplayedAmount(entry), 0);
   
     return <>
     <View style={{
@@ -112,17 +134,26 @@ export const HomeScreen: FC<StackScreenProps<any>> = ({
           fontWeight: 'bold',
         }}>+</Text>
       </TouchableOpacity>
-      <ContainerView type='safe-area' >
+      <ContainerView 
+      type='safe-area'
+      style={{
+        flex: 1,
+      }}
+      >
           <SwipeToDeleteFlatList
-            rows={budgetEntries?.map(entry => ({
+            rows={unsettledBudgetEntries?.map(entry => ({
               id: entry.id,
               title: entry.name,
-              amount: getDisplayedAmount(entry.id),
+              amount: getDisplayedAmount(entry),
             }))}
             onDeleteItem={async (id) => {
               await deleteSharesAndBudgetEntry(id);
               await loadBudgetEntries();
-              await loadShares();
+            }}
+            onSettleItem={async (id) => {
+              const sharesForBudgetEntry = budgetEntries.find(entry => entry.id === id).shares.items;
+              await Promise.all(sharesForBudgetEntry.map(share => updateShareAsSettled(share.id)));
+              await loadBudgetEntries();
             }}
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
@@ -144,7 +175,7 @@ export const HomeScreen: FC<StackScreenProps<any>> = ({
           </EntryBox>;
         })} */}
       </ContainerView>
-     {/*  <View style={{
+      <View style={{
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -159,7 +190,7 @@ export const HomeScreen: FC<StackScreenProps<any>> = ({
           fontSize: 30,
           color: totalAmount > 0 ? THEME.colors.primary : THEME.colors.black,
         }}>{formatNumber(totalAmount, { precision: 2 })} €</Text>
-      </View> */}
+      </View>
     </View>
     </>;
 }

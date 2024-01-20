@@ -56,14 +56,16 @@ export const AddEntryScreen: FC<StackScreenProps<any>> = ({
       input: {
         amount: amount - otherPersonsAmount,
         budgetEntryId: budgetEntry?.id,
-        userId: users[0].id
+        userId: users[0].id,
+        isSettled: false
       }
     })) as { data: { createShare: Share } };
     await API.graphql(graphqlOperation(createShare, {
       input: {
         amount: otherPersonsAmount,
         budgetEntryId: budgetEntry?.id,
-        userId: users[1].id
+        userId: users[1].id,
+        isSettled: false
       }
     })) as { data: { createShare: Share } };
 

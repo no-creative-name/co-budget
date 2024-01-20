@@ -14,7 +14,28 @@ type Row = {
 type SwipeToDeleteFlatListProps = {
   rows: Row[];
   onDeleteItem: (id: string) => void;
+  onSettleItem: (id: string) => void;
 };
+
+const renderLeftActions = (
+  progress: Animated.AnimatedInterpolation<number>,
+  dragX: Animated.AnimatedInterpolation<number>,
+  onSettle: () => void,
+) => {
+  const scale = dragX.interpolate({
+    inputRange: [0, 50],
+    outputRange: [0, 1],
+    extrapolate: 'clamp',
+  });
+
+  return (
+    <TouchableOpacity style={styles.swipedRowLeft} onPress={onSettle}>
+      <Animated.View style={[{transform: [{scale}]}]}>
+        <Text style={styles.settleButtonText}>Settle</Text>
+      </Animated.View>
+    </TouchableOpacity>
+  );
+}
 
 const renderRightActions = (
   progress: Animated.AnimatedInterpolation<number>,
@@ -28,7 +49,7 @@ const renderRightActions = (
   });
 
   return (
-    <TouchableOpacity style={styles.swipedRow} onPress={onDelete}>
+    <TouchableOpacity style={styles.swipedRowRight} onPress={onDelete}>
       <Animated.View style={[{opacity}]}>
           <Text style={styles.deleteButtonText}>Delete</Text>
       </Animated.View>
@@ -38,13 +59,17 @@ const renderRightActions = (
 
 const Item: FC<Row & {
   onDelete: (id: string) => void;
+  onSettle: (id: string) => void;
 }> = ({
   title,
   id,
   amount,
-  onDelete
+  onDelete,
+  onSettle
 }) => (
-  <Swipeable renderRightActions={(progress, dragX) => renderRightActions(progress, dragX, () => onDelete(id))}>
+  <Swipeable 
+  renderLeftActions={(progress, dragX) => renderLeftActions(progress, dragX, () => onSettle(id))}
+  renderRightActions={(progress, dragX) => renderRightActions(progress, dragX, () => onDelete(id))}>
     <View style={styles.row}>
       <Text>{title}</Text>
       <Text style={{
@@ -57,10 +82,11 @@ const Item: FC<Row & {
 export const SwipeToDeleteFlatList: FC<SwipeToDeleteFlatListProps & Pick<FlatListProps<Row>, 'refreshControl'>> = ({
   rows,
   onDeleteItem,
+  onSettleItem,
   refreshControl,
 }) => {
   const renderItem = (dataItem: Row) => (
-    <Item {...dataItem} onDelete={onDeleteItem} />
+    <Item {...dataItem} onDelete={onDeleteItem} onSettle={onSettleItem} />
   );
 
   return (

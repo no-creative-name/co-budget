@@ -22,4 +22,5 @@ type Share @model @auth(rules: [{ allow: public }]) {
   amount: Float!
   userId: ID! @index(name: "byUser", sortKeyFields: ["amount"])
   budgetEntryId: ID! @index(name: "byBudgetEntry", sortKeyFields: ["amount"])
+  isSettled: Boolean!
 }
